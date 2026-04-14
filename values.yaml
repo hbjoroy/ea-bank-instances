@@ -1,0 +1,30 @@
+# Bragd Central Bank (RTGS/INST) — instance overrides
+
+bragd-rtgs-chart:
+  image:
+    repository: oci.bjoroy.me/bank/bragd-api
+    tag: "0.1.0"
+
+  service:
+    port: 8095
+
+  ingress:
+    enabled: true
+    className: traefik
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    hosts:
+      - host: bragd-rtgs.bjoroy.me
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - secretName: bragd-rtgs-tls
+        hosts:
+          - bragd-rtgs.bjoroy.me
+
+  database:
+    host: "postgres-postgresql.database.svc.cluster.local"
+    port: 5432
+    name: "bragd_rtgs"
+    username: "bragd_rtgs"
