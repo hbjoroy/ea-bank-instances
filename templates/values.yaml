@@ -1,0 +1,32 @@
+# Instance-specific values — copy to your branch and customise
+# Anything here overrides the defaults in the bjoroy-bank chart
+
+bjoroy-bank:
+  global:
+    instanceId: "CHANGE-ME"           # e.g. "minoa-bank", "isdalen"
+    domain: "CHANGE-ME.bjoroy.me"     # public domain for this instance
+    database:
+      host: "postgresql.postgresql.svc.cluster.local"
+      port: 5432
+      username: "postgres"
+
+  # Interbank payment settings
+  paymentEngine:
+    centralBankUrl: "http://bragd-api.bragd-rtgs.svc.cluster.local:8095"
+    bankId: "CHANGE"                  # 4-char participant code (e.g. MINO, ISDA)
+
+  # Ingress
+  ingress:
+    enabled: true
+    className: traefik
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    tls: true
+
+  # Resource overrides (optional)
+  # coreApi:
+  #   replicas: 1
+  #   resources:
+  #     requests:
+  #       memory: 128Mi
+  #       cpu: 100m

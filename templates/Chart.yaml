@@ -1,0 +1,11 @@
+apiVersion: v2
+name: bank-instance
+description: Wrapper chart for a Bjorøy Bank instance
+type: application
+version: 0.1.0
+appVersion: "1.4.13"
+
+dependencies:
+  - name: bjoroy-bank
+    version: "0.12.23"
+    repository: "oci://oci.bjoroy.me/bank"
