@@ -3,7 +3,7 @@
 bragd-rtgs-chart:
   image:
     repository: oci.bjoroy.me/bank/bragd-api
-    tag: "0.2.3"
+    tag: "0.2.4"
 
   service:
     port: 8095
