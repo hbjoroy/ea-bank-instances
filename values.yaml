@@ -3,7 +3,7 @@
 
 bjoroy-bank:
   global:
-    instanceId: "minoa-bank"
+    instanceId: "minoa"
     domain: "bjoroy.me"
     imageTag: "1.4.14"
     imageRegistry: "oci.bjoroy.me/bank"
