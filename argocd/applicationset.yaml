@@ -7,12 +7,11 @@ spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
   generators:
-    - scmProvider:
-        github:
-          organization: hbjoroy
-          repository: ea-bank-instances
-        filters:
-          - branchMatch: '^(?!main$|master$).*$'
+    - list:
+        elements:
+          - branch: minoa-bank
+          - branch: isdalen
+          - branch: bragd-rtgs
   template:
     metadata:
       name: '{{ .branch }}'
