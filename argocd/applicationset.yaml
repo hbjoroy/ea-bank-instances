@@ -9,9 +9,14 @@ spec:
   generators:
     - list:
         elements:
-          - branch: minoa-bank
-          - branch: isdalen
+          # autoSync: "true" → automated prune + selfHeal
+          # autoSync: "false" → manual sync only (safe for existing instances)
           - branch: bragd-rtgs
+            autoSync: "true"
+          - branch: minoa-bank
+            autoSync: "false"
+          - branch: isdalen
+            autoSync: "false"
   template:
     metadata:
       name: '{{ .branch }}'
@@ -32,9 +37,11 @@ spec:
         server: https://kubernetes.default.svc
         namespace: '{{ .branch }}'
       syncPolicy:
+        {{- if eq .autoSync "true" }}
         automated:
           prune: true
           selfHeal: true
+        {{- end }}
         syncOptions:
           - CreateNamespace=true
           - ServerSideApply=true
