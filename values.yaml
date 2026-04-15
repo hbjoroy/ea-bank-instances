@@ -5,14 +5,64 @@ bjoroy-bank:
   global:
     instanceId: "minoa-bank"
     domain: "bjoroy.me"
-    imageTag: "1.4.13"
+    imageTag: "1.4.14"
     imageRegistry: "oci.bjoroy.me/bank"
     dbHost: "postgres-postgresql.database.svc.cluster.local"
 
+  # ── Bank identity (overrides chart defaults) ────────────────────
+  bank:
+    institution:
+      bic: "MINOANO1XXX"
+      name: "Minoa Bank"
+      countryCode: "NO"
+    prefix:
+      type: "BKREG"
+      value: "3188"
+    series:
+      - name: "Current Accounts"
+        description: "Current accounts (3188 110000–119999)"
+        rangeStart: 110000
+        rangeEnd: 119999
+      - name: "Savings Accounts"
+        description: "Savings accounts (3188 120000–124999)"
+        rangeStart: 120000
+        rangeEnd: 124999
+    products:
+      - name: "Current Account"
+        productType: "current_account"
+        currency: "NOK"
+        interestRate: "0.5"
+        seriesIndex: 0
+      - name: "Savings Account"
+        productType: "savings_account"
+        currency: "NOK"
+        interestRate: "3.5"
+        seriesIndex: 1
+
+  # ── OIDC (Authentik) ──────────────────────────────────────────
+  oidc:
+    issuerUrl: "https://identity.limani-parou.com/application/o/bjoroy-bank/"
+    jwksUrl: "https://identity.limani-parou.com/application/o/bjoroy-bank/jwks/"
+    audience: "aWWYVJ8dDmzoh8afB6fvSvAZcBSc8De42O5Mrfvg"
+
+  # ── Chat Service ──────────────────────────────────────────────
+  chatService:
+    enabled: true
+
+  # ── Core API ──────────────────────────────────────────────────
+  coreApi:
+    port: 8082
+
+  # ── Channel Gateway ───────────────────────────────────────────
+  channelGateway:
+    scaBaseUrl: "https://minoa-bank.bjoroy.me"
+
+  # ── Payment Engine (interbank) ────────────────────────────────
   paymentEngine:
     centralBankUrl: "http://bragd-api.bragd-rtgs.svc.cluster.local:8095"
     bankId: "MINO"
 
+  # ── Ingress ───────────────────────────────────────────────────
   ingress:
     enabled: true
     className: traefik
