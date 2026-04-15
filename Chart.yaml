@@ -3,7 +3,7 @@ name: bragd-rtgs-instance
 description: Bragd Central Bank — RTGS/INST clearing service
 type: application
 version: 0.1.1
-appVersion: "0.2.4"
+appVersion: "0.2.5"
 
 dependencies:
   - name: bragd-rtgs-chart
