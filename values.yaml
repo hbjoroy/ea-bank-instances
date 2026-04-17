@@ -58,10 +58,6 @@ bjoroy-bank:
   adminApi:
     imageTag: "1.4.16"
 
-  # ── Admin UI ─────────────────────────────────────────────────
-  adminUi:
-    imageTag: "1.4.16"
-
   # ── Channel Gateway ───────────────────────────────────────────
   channelGateway:
     scaBaseUrl: "https://minoa-bank.bjoroy.me"
