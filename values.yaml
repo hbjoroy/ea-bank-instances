@@ -52,6 +52,11 @@ bjoroy-bank:
   # ── Core API ──────────────────────────────────────────────────
   coreApi:
     port: 8082
+    imageTag: "1.4.16"
+
+  # ── Admin API ────────────────────────────────────────────────
+  adminApi:
+    imageTag: "1.4.16"
 
   # ── Channel Gateway ───────────────────────────────────────────
   channelGateway:
@@ -61,6 +66,15 @@ bjoroy-bank:
   paymentEngine:
     centralBankUrl: "http://bragd-api.bragd-rtgs.svc.cluster.local:8095"
     bankId: "MINO"
+    imageTag: "1.4.16"
+
+  # ── Definitions Service ──────────────────────────────────────
+  definitionsService:
+    imageTag: "1.4.16"
+
+  # ── Scheduler ────────────────────────────────────────────────
+  scheduler:
+    imageTag: "1.4.16"
 
   # ── Ingress ───────────────────────────────────────────────────
   ingress:
