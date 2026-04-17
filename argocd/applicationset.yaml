@@ -9,18 +9,13 @@ spec:
   generators:
     - list:
         elements:
-          # autoSync: "true" → automated prune + selfHeal
-          # autoSync: "false" → manual sync only (safe for existing instances)
           # releaseName: Helm release name (must match original helm install)
           - branch: bragd-rtgs
             releaseName: bragd-rtgs
-            autoSync: "true"
           - branch: minoa-bank
             releaseName: minoa
-            autoSync: "false"
           - branch: isdalen
             releaseName: isdalen
-            autoSync: "false"
   template:
     metadata:
       name: '{{ .branch }}'
@@ -42,11 +37,6 @@ spec:
         server: https://kubernetes.default.svc
         namespace: '{{ .branch }}'
       syncPolicy:
-        {{- if eq .autoSync "true" }}
-        automated:
-          prune: true
-          selfHeal: true
-        {{- end }}
         syncOptions:
           - CreateNamespace=true
           - ServerSideApply=true
