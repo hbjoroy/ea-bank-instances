@@ -2,10 +2,10 @@ apiVersion: v2
 name: bragd-rtgs-instance
 description: Bragd Central Bank — RTGS/INST clearing service
 type: application
-version: 0.1.2
-appVersion: "0.2.6"
+version: 0.1.3
+appVersion: "0.2.7"
 
 dependencies:
   - name: bragd-rtgs-chart
-    version: "0.2.2"
+    version: "0.2.3"
     repository: "oci://oci.bjoroy.me/bank"
