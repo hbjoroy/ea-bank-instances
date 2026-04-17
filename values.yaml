@@ -76,6 +76,11 @@ bjoroy-bank:
   scheduler:
     imageTag: "1.4.16"
 
+  # ── Database setup (pre-install) ─────────────────────────────
+  setup:
+    existingSecret: "postgres-admin"
+    existingSecretKey: "password"
+
   # ── Ingress ───────────────────────────────────────────────────
   ingress:
     enabled: false
