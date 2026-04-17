@@ -5,7 +5,7 @@ bjoroy-bank:
   global:
     instanceId: "minoa"
     domain: "bjoroy.me"
-    imageTag: "1.4.14"
+    imageTag: "1.4.9"
     imageRegistry: "oci.bjoroy.me/bank"
     dbHost: "postgres-postgresql.database.svc.cluster.local"
 
