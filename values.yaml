@@ -73,10 +73,12 @@ bjoroy-bank:
         paths:
           - path: /
             pathType: Prefix
+            service: channel-gateway
       - host: minoa-bank-admin.bjoroy.me
         paths:
           - path: /
             pathType: Prefix
+            service: admin-ui
     tls:
       - secretName: minoa-bank-tls
         hosts:
