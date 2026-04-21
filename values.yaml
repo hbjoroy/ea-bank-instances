@@ -52,11 +52,11 @@ bjoroy-bank:
   # ── Core API ──────────────────────────────────────────────────
   coreApi:
     port: 8082
-    imageTag: "1.4.17"
+    imageTag: "1.4.18"
 
   # ── Admin API ────────────────────────────────────────────────
   adminApi:
-    imageTag: "1.4.17"
+    imageTag: "1.4.18"
 
   # ── Channel Gateway ───────────────────────────────────────────
   channelGateway:
@@ -66,15 +66,15 @@ bjoroy-bank:
   paymentEngine:
     centralBankUrl: "http://bragd-api.bragd-rtgs.svc.cluster.local:8095"
     bankId: "ISDA"
-    imageTag: "1.4.17"
+    imageTag: "1.4.18"
 
   # ── Definitions Service ──────────────────────────────────────
   definitionsService:
-    imageTag: "1.4.17"
+    imageTag: "1.4.18"
 
   # ── Scheduler ────────────────────────────────────────────────
   scheduler:
-    imageTag: "1.4.17"
+    imageTag: "1.4.18"
 
   # ── Database setup (pre-install) ─────────────────────────────
   setup:
