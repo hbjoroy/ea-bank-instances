@@ -64,7 +64,7 @@ bjoroy-bank:
 
   # ── Payment Engine (interbank) ────────────────────────────────
   paymentEngine:
-    centralBankUrl: "http://bragd-api.bragd-rtgs.svc.cluster.local:8095"
+    centralBankUrl: "http://bragd-rtgs-bragd-api.bragd-rtgs.svc.cluster.local:8095"
     bankId: "MINO"
     imageTag: "1.4.18"
 
