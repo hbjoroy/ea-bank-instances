@@ -5,7 +5,7 @@ bjoroy-bank:
   global:
     instanceId: "minoa"
     domain: "bjoroy.me"
-    imageTag: "1.4.19"
+    imageTag: "1.4.20"
     imageRegistry: "oci.bjoroy.me/bank"
     dbHost: "postgres-postgresql.database.svc.cluster.local"
 
@@ -60,11 +60,11 @@ bjoroy-bank:
   # ── Core API ──────────────────────────────────────────────────
   coreApi:
     port: 8082
-    imageTag: "1.4.19"
+    imageTag: "1.4.20"
 
   # ── Admin API ────────────────────────────────────────────────
   adminApi:
-    imageTag: "1.4.19"
+    imageTag: "1.4.20"
 
   # ── Channel Gateway ───────────────────────────────────────────
   channelGateway:
@@ -75,15 +75,15 @@ bjoroy-bank:
   paymentEngine:
     centralBankUrl: "http://bragd-rtgs-bragd-api.bragd-rtgs.svc.cluster.local:8095"
     bankId: "MINO"
-    imageTag: "1.4.19"
+    imageTag: "1.4.20"
 
   # ── Definitions Service ──────────────────────────────────────
   definitionsService:
-    imageTag: "1.4.19"
+    imageTag: "1.4.20"
 
   # ── Scheduler ────────────────────────────────────────────────
   scheduler:
-    imageTag: "1.4.19"
+    imageTag: "1.4.20"
 
   # ── Ingress ───────────────────────────────────────────────────
   ingress:
