@@ -49,6 +49,14 @@ bjoroy-bank:
   chatService:
     enabled: true
 
+  # ── Auth Service ───────────────────────────────────────────────
+  authService:
+    imageTag: "1.4.9"
+
+  # ── SCA UI ─────────────────────────────────────────────────────
+  scaUi:
+    imageTag: "1.4.9"
+
   # ── Core API ──────────────────────────────────────────────────
   coreApi:
     port: 8082
