@@ -16,6 +16,10 @@ spec:
             releaseName: minoa
           - branch: isdalen
             releaseName: isdalen
+          - branch: fifth-network
+            releaseName: fifth-network
+          - branch: docs
+            releaseName: docs
   template:
     metadata:
       name: '{{ .branch }}'

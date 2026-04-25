@@ -11,6 +11,12 @@ spec:
     - 'oci://oci.bjoroy.me/bank/*'
     - 'oci://oci.bjoroy.me/heart'
     - 'oci://oci.bjoroy.me/heart/*'
+    - 'oci://oci.bjoroy.me/fifth'
+    - 'oci://oci.bjoroy.me/fifth/*'
+    - 'oci://oci.bjoroy.me/docs'
+    - 'oci://oci.bjoroy.me/docs/*'
+    - 'oci://oci.bjoroy.me/rtp'
+    - 'oci://oci.bjoroy.me/rtp/*'
   destinations:
     # Allow deployment to any namespace in the local cluster
     - server: https://kubernetes.default.svc
