@@ -1,0 +1,7 @@
+# Documentation site
+bank-docs:
+  replicaCount: 1
+  imageRegistry: "oci.bjoroy.me/docs"
+  image: bank-docs
+  imageTag: "0.1.0"
+  port: 80

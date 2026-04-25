@@ -1,0 +1,11 @@
+apiVersion: v2
+name: bank-docs-instance
+description: Bjorøy Bank documentation site
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+
+dependencies:
+  - name: bank-docs
+    version: "0.1.0"
+    repository: "oci://oci.bjoroy.me/docs"
