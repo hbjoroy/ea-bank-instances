@@ -69,7 +69,7 @@ bjoroy-bank:
   # ── Channel Gateway ───────────────────────────────────────────
   channelGateway:
     scaBaseUrl: "https://minoa-bank.bjoroy.me"
-    imageTag: "1.4.10"
+    imageTag: "1.4.11"
 
   # ── Payment Engine (interbank) ────────────────────────────────
   paymentEngine:
@@ -80,7 +80,7 @@ bjoroy-bank:
   # ── RTP Service Provider ────────────────────────────────────
   rtpSpApi:
     enabled: true
-    imageTag: "0.2.0"
+    imageTag: "0.2.1"
     participantName: "Minoa Bank"
     ibanPrefixes: "NO3188"
 
