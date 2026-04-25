@@ -3,5 +3,5 @@ bank-docs:
   replicaCount: 1
   image:
     registry: "oci.bjoroy.me"
-    repository: "docs/bank-docs"
-    tag: "0.1.0"
+    repository: "docs/bank-docs-site"
+    tag: "0.1.1"
