@@ -77,6 +77,13 @@ bjoroy-bank:
     bankId: "ISDA"
     imageTag: "1.4.23"
 
+  # ── RTP Service Provider ────────────────────────────────────
+  rtpSpApi:
+    enabled: true
+    imageTag: "0.2.0"
+    participantName: "Isdalen Bank"
+    ibanPrefixes: "NO3288"
+
   # ── Definitions Service ──────────────────────────────────────
   definitionsService:
     imageTag: "1.4.23"
