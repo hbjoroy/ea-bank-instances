@@ -1,0 +1,21 @@
+# FIFTH Network — shared infrastructure services
+fifth-network:
+  global:
+    imageRegistry: "oci.bjoroy.me/fifth"
+    imageTag: "0.2.0"
+    dbHost: "postgres-postgresql.database.svc.cluster.local"
+    dbName: "fifth_network"
+    dbUser: "postgres"
+  
+  bicRegistry:
+    port: 8091
+  
+  rtpDirectory:
+    enabled: true
+    port: 8094
+    imageRegistry: "oci.bjoroy.me/rtp"
+    imageTag: "0.2.0"
+  
+  setup:
+    existingSecret: "postgres-admin"
+    existingSecretKey: "password"
