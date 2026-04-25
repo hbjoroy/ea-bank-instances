@@ -1,7 +1,19 @@
-# Documentation site
-bank-docs:
-  replicaCount: 1
-  image:
-    registry: "oci.bjoroy.me"
-    repository: "docs/bank-docs-site"
-    tag: "0.1.1"
+replicaCount: 1
+
+image:
+  registry: "oci.bjoroy.me"
+  repository: "docs/bank-docs-site"
+  tag: "0.1.1"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 64Mi
+  requests:
+    cpu: 10m
+    memory: 32Mi
