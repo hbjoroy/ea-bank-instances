@@ -1,0 +1,6 @@
+dependencies:
+- name: fifth-network
+  repository: oci://oci.bjoroy.me/fifth
+  version: 0.2.5
+digest: sha256:2260475a4c380946a0234e3a0379f332f2cbbb76ed7c78ebcae7cf592200c566
+generated: "2026-04-26T14:46:02.205041543+02:00"
