@@ -2,10 +2,10 @@ apiVersion: v2
 name: fifth-network-instance
 description: FIFTH Network — shared financial infrastructure
 type: application
-version: 0.1.1
-appVersion: "0.2.1"
+version: 0.1.2
+appVersion: "0.2.2"
 
 dependencies:
   - name: fifth-network
-    version: "0.2.1"
+    version: "0.2.2"
     repository: "oci://oci.bjoroy.me/fifth"
