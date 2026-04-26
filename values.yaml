@@ -80,8 +80,9 @@ bjoroy-bank:
   # ── RTP Service Provider ────────────────────────────────────
   rtpSpApi:
     enabled: true
-    imageTag: "0.2.1"
+    imageTag: "0.2.2"
     participantName: "Isdalen Bank"
+    bankBic: "ISDANO1XXX"
     ibanPrefixes: "NO3288"
 
   # ── Definitions Service ──────────────────────────────────────
