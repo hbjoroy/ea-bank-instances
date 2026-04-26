@@ -48,8 +48,6 @@ bjoroy-bank:
   # ── Chat Service ──────────────────────────────────────────────
   chatService:
     enabled: true
-    chatService:
-      imageTag: "0.1.11"
 
   # ── Auth Service ───────────────────────────────────────────────
   authService:
