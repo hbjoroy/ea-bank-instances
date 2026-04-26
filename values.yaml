@@ -1,7 +1,7 @@
 # FIFTH Network — shared infrastructure services
 fifth-network:
   imageRegistry: "oci.bjoroy.me/fifth"
-  imageTag: "0.2.4"
+  imageTag: "0.2.5"
 
   database:
     host: "postgres-postgresql.database.svc.cluster.local"
@@ -20,7 +20,8 @@ fifth-network:
     port: 8094
 
   adminUi:
-    enabled: false  # image not yet built in CI
+    enabled: true
+    imageTag: "0.2.5"
 
   setup:
     enabled: true
