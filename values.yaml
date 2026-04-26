@@ -97,7 +97,7 @@ bjoroy-bank:
   # ── Accounting (subchart) ─────────────────────────────────────
   accounting:
     accountingApi:
-      imageTag: "0.1.4"  # pin until code build is fixed
+      imageTag: "0.1.7"
 
   # ── Database setup (pre-install) ─────────────────────────────
   setup:
