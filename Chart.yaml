@@ -2,10 +2,10 @@ apiVersion: v2
 name: minoa-bank
 description: Minoa Bank — Bjorøy Bank instance
 type: application
-version: 0.1.28
-appVersion: "1.4.27"
+version: 0.1.29
+appVersion: "1.4.28"
 
 dependencies:
   - name: bjoroy-bank
-    version: "0.12.51"
+    version: "0.12.52"
     repository: "oci://oci.bjoroy.me/bank"
