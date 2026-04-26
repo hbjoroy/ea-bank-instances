@@ -16,7 +16,7 @@ fifth-network:
 
   rtpDirectory:
     imageRegistry: "oci.bjoroy.me/rtp"
-    imageTag: "0.2.6"
+    imageTag: "0.2.3"
     port: 8094
 
   adminUi:
