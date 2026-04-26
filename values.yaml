@@ -82,7 +82,7 @@ bjoroy-bank:
     enabled: true
     imageTag: "0.2.1"
     participantName: "Minoa Bank"
-    ibanPrefixes: "NO3188"
+    ibanPrefixes: "NO3188,NO3606,NO3607,NO3608,NO3609,NO3610"
 
   # ── Definitions Service ──────────────────────────────────────
   definitionsService:
