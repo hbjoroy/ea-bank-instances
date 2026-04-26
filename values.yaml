@@ -80,8 +80,9 @@ bjoroy-bank:
   # ── RTP Service Provider ────────────────────────────────────
   rtpSpApi:
     enabled: true
-    imageTag: "0.2.1"
+    imageTag: "0.2.2"
     participantName: "Minoa Bank"
+    bankBic: "MINOANO1XXX"
     ibanPrefixes: "NO3188,NO3606,NO3607,NO3608,NO3609,NO3610"
 
   # ── Definitions Service ──────────────────────────────────────
