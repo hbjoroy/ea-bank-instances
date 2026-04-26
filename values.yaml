@@ -75,6 +75,8 @@ bjoroy-bank:
   paymentEngine:
     centralBankUrl: "http://bragd-rtgs-bragd-api.bragd-rtgs.svc.cluster.local:8095"
     bankId: "MINO"
+    bankSortCodes: "3188,3606,3607,3608,3609,3610"
+    nostroScheme: "bragd"
     imageTag: "1.4.23"
 
   # ── RTP Service Provider ────────────────────────────────────
