@@ -82,7 +82,7 @@ bjoroy-bank:
     enabled: true
     imageTag: "0.2.2"
     participantName: "Isdalen Bank"
-    bankBic: "ISDANO1XXX"
+    bankBic: "ISDABRXX"
     ibanPrefixes: "NO3288"
 
   # ── Definitions Service ──────────────────────────────────────
