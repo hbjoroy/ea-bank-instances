@@ -75,6 +75,8 @@ bjoroy-bank:
   paymentEngine:
     centralBankUrl: "http://bragd-rtgs-bragd-api.bragd-rtgs.svc.cluster.local:8095"
     bankId: "ISDA"
+    bankSortCodes: "3288"
+    nostroScheme: "bragd"
     imageTag: "1.4.23"
 
   # ── RTP Service Provider ────────────────────────────────────
