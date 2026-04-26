@@ -94,6 +94,11 @@ bjoroy-bank:
   scheduler:
     imageTag: "1.4.28"
 
+  # ── Accounting (subchart) ─────────────────────────────────────
+  accounting:
+    accountingApi:
+      imageTag: "0.1.4"  # pin until code build is fixed
+
   # ── Ingress ───────────────────────────────────────────────────
   ingress:
     enabled: false
