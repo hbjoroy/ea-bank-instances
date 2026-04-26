@@ -1,6 +1,6 @@
 dependencies:
-- name: fifth-network
-  repository: oci://oci.bjoroy.me/fifth
-  version: 0.2.5
-digest: sha256:2260475a4c380946a0234e3a0379f332f2cbbb76ed7c78ebcae7cf592200c566
-generated: "2026-04-26T14:46:02.205041543+02:00"
+- name: bjoroy-bank
+  repository: oci://oci.bjoroy.me/bank
+  version: 0.12.56
+digest: sha256:a10e83035850a4c082f1765e45c8b565227c49b9b595699d4ae09acd39751816
+generated: "2026-04-26T17:04:15.101623785+02:00"
