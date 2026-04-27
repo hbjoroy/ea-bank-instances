@@ -52,6 +52,8 @@ bjoroy-bank:
   # ── Channel Service ────────────────────────────────────────────
   channelSvc:
     enabled: true
+    channelSvc:
+      imageTag: "0.1.0"
 
   # ── Auth Service ───────────────────────────────────────────────
   authService:
