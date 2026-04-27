@@ -49,6 +49,10 @@ bjoroy-bank:
   chatService:
     enabled: true
 
+  # ── Channel Service ────────────────────────────────────────────
+  channelSvc:
+    enabled: true
+
   # ── Auth Service ───────────────────────────────────────────────
   authService:
     imageTag: "1.4.9"
