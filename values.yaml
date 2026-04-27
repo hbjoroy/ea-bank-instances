@@ -48,6 +48,8 @@ bjoroy-bank:
   # ── Chat Service ──────────────────────────────────────────────
   chatService:
     enabled: true
+    channelContext:
+      url: "http://isdalen-channel-svc:8095"
 
   # ── Channel Service ────────────────────────────────────────────
   channelSvc:
