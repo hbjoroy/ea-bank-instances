@@ -1,6 +1,6 @@
 dependencies:
 - name: bjoroy-bank
   repository: oci://oci.bjoroy.me/bank
-  version: 0.12.73
-digest: sha256:c2c3a5da5cbb34058a3a7225da246098644daf8c0d82179d4ac0a4e8bcdb6362
-generated: "2026-04-27T21:44:05.685863656+02:00"
+  version: 0.12.74
+digest: sha256:837d5b592df104b716a744c5802db1ba486c0ea2508b73d7b767f5a95141edea
+generated: "2026-04-28T09:17:29.504924078+02:00"
