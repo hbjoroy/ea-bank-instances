@@ -68,7 +68,7 @@ bjoroy-bank:
   # ── Channel Gateway ───────────────────────────────────────────
   channelGateway:
     scaBaseUrl: "https://minoa-bank.bjoroy.me"
-    imageTag: "1.4.11"
+    imageTag: "1.4.12"
 
   # ── Payment Engine (interbank) ────────────────────────────────
   paymentEngine:
