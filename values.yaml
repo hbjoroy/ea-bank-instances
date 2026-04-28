@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   registry: "oci.bjoroy.me"
   repository: "docs/bank-docs-site"
-  tag: "0.1.4"
+  tag: "0.1.5"
   pullPolicy: IfNotPresent
 
 service:
