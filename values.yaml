@@ -48,6 +48,7 @@ bjoroy-bank:
   # ── Chat Service ──────────────────────────────────────────────
   chatService:
     enabled: true
+    instanceName: "Minoa Bank"
 
   # ── Auth Service ───────────────────────────────────────────────
   authService:
