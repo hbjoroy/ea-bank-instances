@@ -72,12 +72,12 @@ bjoroy-bank:
 
   # ── Admin API ────────────────────────────────────────────────
   adminApi:
-    imageTag: "1.4.28"
+    imageTag: "1.4.38"
 
   # ── Channel Gateway ───────────────────────────────────────────
   channelGateway:
     scaBaseUrl: "https://isdalen.bjoroy.me"
-    imageTag: "1.4.16"
+    imageTag: "1.4.17"
 
   # ── Payment Engine (interbank) ────────────────────────────────
   paymentEngine:
