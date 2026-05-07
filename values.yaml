@@ -116,3 +116,29 @@ bjoroy-bank:
   # ── Ingress ───────────────────────────────────────────────────
   ingress:
     enabled: false
+
+# ══════════════════════════════════════════════════════════════════
+# Merchant Service (14 Beers Pub POS)
+# ══════════════════════════════════════════════════════════════════
+merchant-chart:
+  merchantApi:
+    imageTag: "0.2.0"
+
+  bank:
+    gatewayUrl: "https://isdalen-bank-api.bjoroy.me"
+    authUrl: "https://identity.limani-parou.com/application/o/token/"
+    clientId: "aWWYVJ8dDmzoh8afB6fvSvAZcBSc8De42O5Mrfvg"
+    username: "merchant-pos-service"
+    passwordSecretRef:
+      name: "merchant-bank-credentials"
+      key: "password"
+    scopes: "openid bank:accounts.read bank:payments.write bank:rtp.write"
+
+  merchant:
+    iban: "NO0932881100036"
+    name: "14 Beers Pub"
+    currency: "BRG"
+
+  setup:
+    existingSecret: "postgres-admin"
+    existingSecretKey: "password"
