@@ -5,7 +5,7 @@ bjoroy-bank:
   global:
     instanceId: "isdalen"
     domain: "bjoroy.me"
-    imageTag: "1.4.28"
+    imageTag: "1.4.39"
     imageRegistry: "oci.bjoroy.me/bank"
     dbHost: "postgres-postgresql.database.svc.cluster.local"
 
@@ -68,16 +68,16 @@ bjoroy-bank:
 
   # ── Core API ──────────────────────────────────────────────────
   coreApi:
-    imageTag: "1.4.38"
+    imageTag: "1.4.39"
 
   # ── Admin API ────────────────────────────────────────────────
   adminApi:
-    imageTag: "1.4.38"
+    imageTag: "1.4.39"
 
   # ── Channel Gateway ───────────────────────────────────────────
   channelGateway:
     scaBaseUrl: "https://isdalen.bjoroy.me"
-    imageTag: "1.4.18"
+    imageTag: "1.4.19"
 
   # ── Payment Engine (interbank) ────────────────────────────────
   paymentEngine:
@@ -85,7 +85,7 @@ bjoroy-bank:
     bankId: "ISDA"
     bankSortCodes: "3288"
     nostroScheme: "bragd"
-    imageTag: "1.4.28"
+    imageTag: "1.4.39"
 
   # ── RTP Service Provider ────────────────────────────────────
   rtpSpApi:
@@ -97,11 +97,11 @@ bjoroy-bank:
 
   # ── Definitions Service ──────────────────────────────────────
   definitionsService:
-    imageTag: "1.4.28"
+    imageTag: "1.4.39"
 
   # ── Scheduler ────────────────────────────────────────────────
   scheduler:
-    imageTag: "1.4.28"
+    imageTag: "1.4.39"
 
   # ── Accounting (subchart) ─────────────────────────────────────
   accounting:
