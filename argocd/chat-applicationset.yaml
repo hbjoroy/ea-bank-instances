@@ -34,9 +34,8 @@ spec:
     spec:
       project: bank-instances
       source:
-        repoURL: oci://oci.bjoroy.me/bank
-        chart: chat-chart
-        targetRevision: "0.1.*"
+        repoURL: oci://oci.bjoroy.me/bank/chat-chart
+        targetRevision: "0.1.34"
         helm:
           releaseName: '{{ .releaseName }}'
           values: |
