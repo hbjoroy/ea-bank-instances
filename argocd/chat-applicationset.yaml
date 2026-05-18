@@ -10,14 +10,14 @@ spec:
     - list:
         elements:
           - instance: minoa-bank
-            releaseName: minoa-chat
+            releaseName: minoa
             instanceId: "minoa"
             instanceName: "Minoa Bank"
             domain: "bjoroy.me"
             oidcIssuerUrl: "https://identity.limani-parou.com/application/o/bjoroy-bank/"
             oidcAudience: "aWWYVJ8dDmzoh8afB6fvSvAZcBSc8De42O5Mrfvg"
           - instance: isdalen
-            releaseName: isdalen-chat
+            releaseName: isdalen
             instanceId: "isdalen"
             instanceName: "Isdalen Bank"
             domain: "bjoroy.me"
