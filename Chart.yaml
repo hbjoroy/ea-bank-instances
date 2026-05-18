@@ -2,10 +2,10 @@ apiVersion: v2
 name: isdalen-bank
 description: Isdalen Bank — Bjorøy Bank instance
 type: application
-version: 0.1.64
+version: 0.1.65
 appVersion: "1.4.41"
 
 dependencies:
   - name: bjoroy-bank
-    version: "0.12.84"
+    version: "0.12.85"
     repository: "oci://oci.bjoroy.me/bank"

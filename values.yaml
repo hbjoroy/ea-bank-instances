@@ -45,13 +45,6 @@ bjoroy-bank:
     jwksUrl: "https://identity.limani-parou.com/application/o/bjoroy-bank/jwks/"
     audience: "aWWYVJ8dDmzoh8afB6fvSvAZcBSc8De42O5Mrfvg"
 
-  # ── Chat Service ──────────────────────────────────────────────
-  chatService:
-    enabled: true
-    instanceName: "Isdalen Bank"
-    channelContext:
-      url: "http://isdalen-channel-svc:8095"
-
   # ── Channel Service ────────────────────────────────────────────
   channelSvc:
     enabled: true
