@@ -34,9 +34,9 @@ spec:
     spec:
       project: bank-instances
       source:
-        repoURL: https://github.com/SparebankenVest/ea-bank-chat.git
-        targetRevision: master
-        path: helm/chat-chart
+        repoURL: oci://oci.bjoroy.me/bank
+        chart: chat-chart
+        targetRevision: "0.1.*"
         helm:
           releaseName: '{{ .releaseName }}'
           values: |
