@@ -1,0 +1,62 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: bank-chat
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - list:
+        elements:
+          - instance: minoa-bank
+            releaseName: minoa-chat
+            instanceId: "minoa"
+            instanceName: "Minoa Bank"
+            domain: "bjoroy.me"
+            oidcIssuerUrl: "https://identity.limani-parou.com/application/o/bjoroy-bank/"
+            oidcAudience: "aWWYVJ8dDmzoh8afB6fvSvAZcBSc8De42O5Mrfvg"
+          - instance: isdalen
+            releaseName: isdalen-chat
+            instanceId: "isdalen"
+            instanceName: "Isdalen Bank"
+            domain: "bjoroy.me"
+            oidcIssuerUrl: "https://identity.limani-parou.com/application/o/bjoroy-bank/"
+            oidcAudience: "aWWYVJ8dDmzoh8afB6fvSvAZcBSc8De42O5Mrfvg"
+  template:
+    metadata:
+      name: 'chat-{{ .instance }}'
+      namespace: argocd
+      labels:
+        app.kubernetes.io/managed-by: applicationset
+        bank-service: chat
+        bank-instance: '{{ .instance }}'
+    spec:
+      project: bank-instances
+      source:
+        chart: chat-chart
+        repoURL: oci://oci.bjoroy.me/bank
+        targetRevision: 0.1.*
+        helm:
+          releaseName: '{{ .releaseName }}'
+          values: |
+            global:
+              instanceId: "{{ .instanceId }}"
+              domain: "{{ .domain }}"
+              imageRegistry: oci.bjoroy.me/bank
+            instanceName: "{{ .instanceName }}"
+            oidc:
+              issuerUrl: "{{ .oidcIssuerUrl }}"
+              audience: "{{ .oidcAudience }}"
+            ollama:
+              url: "http://192.168.68.179:11434"
+              model: "gemma4:e2b"
+            llm:
+              provider: "ollama"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{ .instance }}'
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+          - ServerSideApply=true
