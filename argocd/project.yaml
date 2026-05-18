@@ -7,6 +7,7 @@ spec:
   description: Bjorøy Bank deployment instances
   sourceRepos:
     - 'https://github.com/hbjoroy/ea-bank-instances.git'
+    - 'https://github.com/SparebankenVest/ea-bank-chat.git'
     - 'oci://oci.bjoroy.me/bank'
     - 'oci://oci.bjoroy.me/bank/*'
     - 'oci://oci.bjoroy.me/heart'
