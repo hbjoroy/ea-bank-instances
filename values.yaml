@@ -47,11 +47,11 @@ bjoroy-bank:
 
   # ── Auth Service ───────────────────────────────────────────────
   authService:
-    imageTag: "1.4.21"
+    imageTag: "1.4.22"
 
   # ── SCA UI ─────────────────────────────────────────────────────
   scaUi:
-    imageTag: "1.4.21"
+    imageTag: "1.4.22"
 
   # ── Core API ──────────────────────────────────────────────────
   coreApi:
@@ -64,7 +64,7 @@ bjoroy-bank:
   # ── Channel Gateway ───────────────────────────────────────────
   channelGateway:
     scaBaseUrl: "https://minoa-bank.bjoroy.me"
-    imageTag: "1.4.21"
+    imageTag: "1.4.22"
 
   # ── Payment Engine (interbank) ────────────────────────────────
   paymentEngine:
@@ -77,7 +77,7 @@ bjoroy-bank:
   # ── RTP Service Provider ────────────────────────────────────
   rtpSpApi:
     enabled: true
-    imageTag: "0.2.3"
+    imageTag: "0.2.4"
     participantName: "Minoa Bank"
     bankBic: "MINOBRXX"
     ibanPrefixes: "NO3188,NO3606,NO3607,NO3608,NO3609,NO3610"
