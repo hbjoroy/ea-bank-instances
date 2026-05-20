@@ -53,11 +53,11 @@ bjoroy-bank:
 
   # ── Auth Service ───────────────────────────────────────────────
   authService:
-    imageTag: "1.4.21"
+    imageTag: "1.4.22"
 
   # ── SCA UI ─────────────────────────────────────────────────────
   scaUi:
-    imageTag: "1.4.21"
+    imageTag: "1.4.22"
 
   # ── Core API ──────────────────────────────────────────────────
   coreApi:
@@ -70,7 +70,7 @@ bjoroy-bank:
   # ── Channel Gateway ───────────────────────────────────────────
   channelGateway:
     scaBaseUrl: "https://isdalen.bjoroy.me"
-    imageTag: "1.4.21"
+    imageTag: "1.4.22"
 
   # ── Payment Engine (interbank) ────────────────────────────────
   paymentEngine:
@@ -83,7 +83,7 @@ bjoroy-bank:
   # ── RTP Service Provider ────────────────────────────────────
   rtpSpApi:
     enabled: true
-    imageTag: "0.2.3"
+    imageTag: "0.2.4"
     participantName: "Isdalen Bank"
     bankBic: "ISDABRXX"
     ibanPrefixes: "NO3288"
