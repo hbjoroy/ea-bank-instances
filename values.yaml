@@ -47,11 +47,11 @@ bjoroy-bank:
 
   # ── Auth Service ───────────────────────────────────────────────
   authService:
-    imageTag: "1.4.22"
+    imageTag: "1.4.23"
 
   # ── SCA UI ─────────────────────────────────────────────────────
   scaUi:
-    imageTag: "1.4.22"
+    imageTag: "1.4.23"
 
   # ── Core API ──────────────────────────────────────────────────
   coreApi:
@@ -64,7 +64,7 @@ bjoroy-bank:
   # ── Channel Gateway ───────────────────────────────────────────
   channelGateway:
     scaBaseUrl: "https://minoa-bank.bjoroy.me"
-    imageTag: "1.4.22"
+    imageTag: "1.4.23"
 
   # ── Payment Engine (interbank) ────────────────────────────────
   paymentEngine:
