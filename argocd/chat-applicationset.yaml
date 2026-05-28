@@ -16,7 +16,7 @@ spec:
             domain: "bjoroy.me"
             oidcIssuerUrl: "https://identity.limani-parou.com/application/o/bjoroy-bank/"
             oidcAudience: "aWWYVJ8dDmzoh8afB6fvSvAZcBSc8De42O5Mrfvg"
-            multiAgentMode: "false"
+            multiAgentMode: "true"
           - instance: isdalen
             releaseName: isdalen
             instanceId: "isdalen"
