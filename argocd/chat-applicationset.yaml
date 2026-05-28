@@ -16,6 +16,7 @@ spec:
             domain: "bjoroy.me"
             oidcIssuerUrl: "https://identity.limani-parou.com/application/o/bjoroy-bank/"
             oidcAudience: "aWWYVJ8dDmzoh8afB6fvSvAZcBSc8De42O5Mrfvg"
+            multiAgentMode: "false"
           - instance: isdalen
             releaseName: isdalen
             instanceId: "isdalen"
@@ -23,6 +24,7 @@ spec:
             domain: "bjoroy.me"
             oidcIssuerUrl: "https://identity.limani-parou.com/application/o/bjoroy-bank/"
             oidcAudience: "aWWYVJ8dDmzoh8afB6fvSvAZcBSc8De42O5Mrfvg"
+            multiAgentMode: "true"
   template:
     metadata:
       name: 'chat-{{ .instance }}'
@@ -36,7 +38,7 @@ spec:
       source:
         repoURL: oci://oci.bjoroy.me/bank/chat-chart
         chart: chat-chart
-        targetRevision: "0.1.71"
+        targetRevision: "0.1.72"
         helm:
           releaseName: '{{ .releaseName }}'
           values: |
@@ -53,6 +55,8 @@ spec:
               model: "gemma4:e2b"
             llm:
               provider: "ollama"
+            chatService:
+              multiAgentMode: {{ eq .multiAgentMode "true" }}
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{ .instance }}'
