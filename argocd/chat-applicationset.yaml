@@ -38,7 +38,7 @@ spec:
       source:
         repoURL: oci://oci.bjoroy.me/bank/chat-chart
         chart: chat-chart
-        targetRevision: "0.1.76"
+        targetRevision: "0.1.77"
         helm:
           releaseName: '{{ .releaseName }}'
           values: |
