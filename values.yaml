@@ -53,11 +53,11 @@ bjoroy-bank:
 
   # ── Auth Service ───────────────────────────────────────────────
   authService:
-    imageTag: "1.4.23"
+    imageTag: "1.4.24"
 
   # ── SCA UI ─────────────────────────────────────────────────────
   scaUi:
-    imageTag: "1.4.23"
+    imageTag: "1.4.24"
 
   # ── Core API ──────────────────────────────────────────────────
   coreApi:
@@ -70,7 +70,7 @@ bjoroy-bank:
   # ── Channel Gateway ───────────────────────────────────────────
   channelGateway:
     scaBaseUrl: "https://isdalen.bjoroy.me"
-    imageTag: "1.4.23"
+    imageTag: "1.4.24"
 
   # ── Payment Engine (interbank) ────────────────────────────────
   paymentEngine:
