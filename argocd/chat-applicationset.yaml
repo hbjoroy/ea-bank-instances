@@ -38,7 +38,7 @@ spec:
       source:
         repoURL: oci://oci.bjoroy.me/bank/chat-chart
         chart: chat-chart
-        targetRevision: "0.1.88"
+        targetRevision: "0.1.89"
         helm:
           releaseName: '{{ .releaseName }}'
           values: |
@@ -53,6 +53,7 @@ spec:
             ollama:
               url: "http://192.168.68.179:11434"
               model: "gemma4:e2b"
+              numCtx: 32768
             llm:
               provider: "ollama"
             chatService:
