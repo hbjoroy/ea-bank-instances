@@ -51,9 +51,8 @@ spec:
               issuerUrl: "{{ .oidcIssuerUrl }}"
               audience: "{{ .oidcAudience }}"
             ollama:
-              url: "http://192.168.68.179:11434"
-              model: "gemma4:e2b"
-              numCtx: 32768
+              url: "http://192.168.68.152:11434"
+              model: "qwen3.6:latest"
             llm:
               provider: "ollama"
             chatService:
