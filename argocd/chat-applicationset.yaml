@@ -53,6 +53,7 @@ spec:
             ollama:
               url: "http://192.168.68.152:11434"
               model: "qwen27b-santorini:latest"
+              numCtx: 0
             llm:
               provider: "ollama"
             chatService:
