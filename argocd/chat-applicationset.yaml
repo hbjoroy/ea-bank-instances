@@ -52,7 +52,7 @@ spec:
               audience: "{{ .oidcAudience }}"
             ollama:
               url: "http://192.168.68.152:11434"
-              model: "qwen3.6:latest"
+              model: "hf.co/unsloth/Qwen3.6-27B-MTP-GGUF:UD-Q8_K_XL"
             llm:
               provider: "ollama"
             chatService:
