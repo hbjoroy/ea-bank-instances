@@ -62,6 +62,6 @@ kubectl apply -f argocd/applicationset.yaml
 
 | Repo | Description |
 |------|-------------|
-| [ea-bank-core](https://github.com/SparebankenVest/ea-bank-core) | Core banking platform (images + bjoroy-bank chart) |
+| [ea-bank-core](https://github.com/hbjoroy/bank-core) | Core banking platform (images + bjoroy-bank chart) |
 | [ea-bragd-rtgs](https://github.com/hbjoroy/ea-bragd-rtgs) | Bragd Central Bank (RTGS/INST clearing) |
-| [ea-bank-docs](https://github.com/SparebankenVest/ea-bank-docs) | Documentation (Hugo site) |
+| [ea-bank-docs](https://github.com/hbjoroy/bank-docs) | Documentation (Hugo site) |
