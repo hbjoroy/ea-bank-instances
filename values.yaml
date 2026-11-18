@@ -55,11 +55,11 @@ bjoroy-bank:
 
   # ── Core API ──────────────────────────────────────────────────
   coreApi:
-    imageTag: "1.4.41"
+    imageTag: "recovered-e73e9ebfc5f7@sha256:e73e9ebfc5f7372fb7c5584142b56f52e59ce0fb8045567d1532e2fcd9b57e2a"
 
   # ── Admin API ────────────────────────────────────────────────
   adminApi:
-    imageTag: "1.4.41"
+    imageTag: "recovered-9ffa5836b633@sha256:9ffa5836b6337d7d1d1e26b0c7b6d4adccdcc54268065d95fd271f5e6c328d2c"
 
   # ── Channel Gateway ───────────────────────────────────────────
   channelGateway:
@@ -72,7 +72,7 @@ bjoroy-bank:
     bankId: "MINO"
     bankSortCodes: "3188,3606,3607,3608,3609,3610"
     nostroScheme: "bragd"
-    imageTag: "1.4.41"
+    imageTag: "recovered-ae60c1d76676@sha256:ae60c1d76676183ca56c7752342576c178d6f38f87e03cc490dc173d1a8e3f20"
 
   # ── RTP Service Provider ────────────────────────────────────
   rtpSpApi:
@@ -84,11 +84,11 @@ bjoroy-bank:
 
   # ── Definitions Service ──────────────────────────────────────
   definitionsService:
-    imageTag: "1.4.41"
+    imageTag: "recovered-8287004fa630@sha256:8287004fa630061b9aeb9a104a56f40a5e71418524d155f04e86f07683398177"
 
   # ── Scheduler ────────────────────────────────────────────────
   scheduler:
-    imageTag: "1.4.41"
+    imageTag: "recovered-d2e9aee696a3@sha256:d2e9aee696a3effe99c95e951400ac6c3f364eca0264949f239f189043e4a0af"
 
   # ── Accounting (subchart) ─────────────────────────────────────
   accounting:
