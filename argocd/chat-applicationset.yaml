@@ -11,6 +11,8 @@ spec:
         elements:
           - instance: minoa-bank
             releaseName: minoa
+            chatChartVersion: "0.1.91"
+            useVllm: "false"
             instanceId: "minoa"
             instanceName: "Minoa Bank"
             domain: "bjoroy.me"
@@ -19,6 +21,8 @@ spec:
             multiAgentMode: "true"
           - instance: isdalen
             releaseName: isdalen
+            chatChartVersion: "0.1.92"
+            useVllm: "true"
             instanceId: "isdalen"
             instanceName: "Isdalen Bank"
             domain: "bjoroy.me"
@@ -38,7 +42,7 @@ spec:
       source:
         repoURL: oci://oci.bjoroy.me/bank/chat-chart
         chart: chat-chart
-        targetRevision: "0.1.91"
+        targetRevision: '{{ .chatChartVersion }}'
         helm:
           releaseName: '{{ .releaseName }}'
           values: |
@@ -50,12 +54,20 @@ spec:
             oidc:
               issuerUrl: "{{ .oidcIssuerUrl }}"
               audience: "{{ .oidcAudience }}"
+            {{ if eq .useVllm "true" }}
+            llm:
+              provider: "openai"
+              openaiBaseUrl: "http://192.168.68.152:8000"
+              openaiUseServerDefaultModel: true
+              openaiExistingSecret: "bank-chat-vllm"
+            {{ else }}
             ollama:
               url: "http://192.168.68.152:11434"
               model: "qwen27b-santorini:latest"
               numCtx: 0
             llm:
               provider: "ollama"
+            {{ end }}
             chatService:
               multiAgentMode: {{ eq .multiAgentMode "true" }}
       destination:
