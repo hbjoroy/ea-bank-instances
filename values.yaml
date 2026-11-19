@@ -40,7 +40,7 @@ bjoroy-bank:
         seriesIndex: 1
 
   # ── OIDC (Authentik) ──────────────────────────────────────────
-  oidc:
+  oidc: &bankOidc
     issuerUrl: "https://identity.limani-parou.com/application/o/bjoroy-bank/"
     jwksUrl: "https://identity.limani-parou.com/application/o/bjoroy-bank/jwks/"
     audience: "aWWYVJ8dDmzoh8afB6fvSvAZcBSc8De42O5Mrfvg"
@@ -48,8 +48,9 @@ bjoroy-bank:
   # ── Channel Service ────────────────────────────────────────────
   channelSvc:
     enabled: true
+    oidc: *bankOidc
     channelSvc:
-      imageTag: "0.1.0"
+      imageTag: "0.1.1"
 
   # ── Auth Service ───────────────────────────────────────────────
   authService:
