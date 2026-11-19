@@ -11,7 +11,7 @@ spec:
         elements:
           - instance: minoa-bank
             releaseName: minoa
-            chatChartVersion: "0.1.94"
+            chatChartVersion: "0.1.95"
             useVllm: "true"
             instanceId: "minoa"
             instanceName: "Minoa Bank"
@@ -21,7 +21,7 @@ spec:
             multiAgentMode: "true"
           - instance: isdalen
             releaseName: isdalen
-            chatChartVersion: "0.1.94"
+            chatChartVersion: "0.1.95"
             useVllm: "true"
             instanceId: "isdalen"
             instanceName: "Isdalen Bank"
