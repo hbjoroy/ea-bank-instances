@@ -124,9 +124,10 @@ and the Helm image pin go through the normal reviewed release.
 Rocket's Argo CD ApplicationSet takes Minoa from the `minoa-bank` branch and
 uses release name `minoa` in namespace `minoa-bank`. It takes Isdalen from
 `isdalen` and uses `isdalen` as both release name and namespace. The instance
-IDs used for databases and OCI are `minoa` and `isdalen`. The checked-in
-ApplicationSet requires a sync operation for each bank. Check the live
-Application before changing its Git branch to confirm the effective sync policy.
+IDs used for databases and OCI are `minoa` and `isdalen`. Check the effective
+sync policy before changing either Git branch. A bank syncs automatically
+after its ApplicationSet entry opts in. An application without that opt-in
+requires an operator sync.
 
 Capture each application's deployed Git revision, actual pod image digests
 and existing enabled schedule export. Record the existing OCI manifest digest
