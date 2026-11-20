@@ -89,6 +89,9 @@ bjoroy-bank:
     bankBic: "ISDABRXX"
     ibanPrefixes: "NO3288"
 
+  bankCalendarCutover:
+    version: "deposit-interest-v1"
+
   # ── Definitions Service ──────────────────────────────────────
   definitionsService:
     imageTag: "recovered-8287004fa630@sha256:8287004fa630061b9aeb9a104a56f40a5e71418524d155f04e86f07683398177"
