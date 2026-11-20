@@ -1,0 +1,56 @@
+name: Publish sealed bank release
+on:
+  workflow_dispatch:
+    inputs:
+      plan: {description: Approved canonical targets and SHA-256 digests, required: true}
+permissions:
+  contents: read
+  actions: read
+  checks: write
+concurrency:
+  group: canonical-bank-artifact-publisher
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oras-project/setup-oras@v1
+        with: {version: 1.2.3}
+      - uses: azure/setup-helm@v4
+      - name: Prepare release recipient and receive encrypted packet
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_PLAN: ${{ inputs.plan }}
+        run: |
+          set -euo pipefail
+          umask 077
+          sudo apt-get -qq update && sudo apt-get -qq install -y age > /dev/null
+          cd "$RUNNER_TEMP"
+          mkdir sealed
+          cd sealed
+          printf '%s' "$RELEASE_PLAN" > plan.json
+          python3 "$GITHUB_WORKSPACE/scripts/sealed-publisher.py" check
+          age-keygen -o identity 2>/dev/null
+          recipient=$(age-keygen -y identity)
+          gh api "repos/$GITHUB_REPOSITORY/check-runs" -X POST -f name="Bank release recipient $GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT" -f head_sha="$GITHUB_SHA" -f status=completed -f conclusion=success -f 'output[title]=Ephemeral age recipient' -f "output[summary]=$recipient" > /dev/null
+          python3 "$GITHUB_WORKSPACE/scripts/sealed-publisher.py" receive
+          age -d -i identity -o packet.json packet.age
+          rm -f identity packet.age
+      - name: Verify source bytes and publish immutable registry manifests
+        env:
+          OCI_USERNAME: ${{ secrets.OCI_USERNAME }}
+          OCI_PASSWORD: ${{ secrets.OCI_PASSWORD }}
+        run: |
+          set -euo pipefail
+          umask 077
+          cd "$RUNNER_TEMP/sealed"
+          test -n "$OCI_USERNAME" && test -n "$OCI_PASSWORD"
+          printf '%s' "$OCI_PASSWORD" | oras login oci.bjoroy.me -u "$OCI_USERNAME" --password-stdin >/dev/null
+          printf '%s' "$OCI_PASSWORD" | helm registry login oci.bjoroy.me -u "$OCI_USERNAME" --password-stdin >/dev/null
+          python3 "$GITHUB_WORKSPACE/scripts/sealed-publisher.py" publish
+      - name: Remove temporary recipient and staged files
+        if: always()
+        run: rm -rf -- "$RUNNER_TEMP/sealed"

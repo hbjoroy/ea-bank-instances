@@ -1,0 +1,38 @@
+name: Supply sealed bank release packet
+on:
+  workflow_dispatch:
+    inputs:
+      publisher_run: {description: Waiting publisher run ID, required: true}
+      attempt: {description: Waiting run attempt, required: true}
+      packet: {description: Base64 age ciphertext for this run only, required: true}
+permissions:
+  contents: read
+  actions: read
+jobs:
+  deliver:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate the waiting publisher and encrypted envelope
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TARGET: ${{ inputs.publisher_run }}
+          ATTEMPT: ${{ inputs.attempt }}
+          PACKET: ${{ inputs.packet }}
+        run: |
+          set -euo pipefail
+          [[ "$TARGET" =~ ^[0-9]+$ && "$ATTEMPT" =~ ^[0-9]+$ ]]
+          gh api "repos/$GITHUB_REPOSITORY/actions/runs/$TARGET" | jq -e --arg actor "$GITHUB_ACTOR" --argjson attempt "$ATTEMPT" '
+            .actor.login==$actor and .event=="workflow_dispatch" and .head_branch=="master" and .path==".github/workflows/publish-sealed-bank-release.yml" and .run_attempt==$attempt and .status=="in_progress"' >/dev/null
+          python3 - <<'PY'
+          import base64, os
+          from pathlib import Path
+          data=base64.b64decode(os.environ["PACKET"],validate=True)
+          assert len(data)<=48000 and data.startswith(b"age-encryption.org/v1\n")
+          Path("packet.age").write_bytes(data)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sealed-${{ inputs.publisher_run }}-${{ inputs.attempt }}
+          path: packet.age
+          retention-days: 1
