@@ -103,7 +103,7 @@ bjoroy-bank:
   # ── Accounting (subchart) ─────────────────────────────────────
   accounting:
     accountingApi:
-      imageTag: "git-71ce9174129483f9912746a0f034f563e52ad1ae@sha256:ded1b0104ddff3bc0aba890f406f202c3c6e2e32ee9e6cd85b711dc0c0c04688"
+      imageTag: "git-842c8197d3fba047f6fb096576f135e867da7228@sha256:5ed2db870e1e84d69659a4c4e19c9b1f322b5679eced43c9763fb47961f3132b"
       bankTimezone: "Europe/Oslo"
       requireDepositOpening: true
 
