@@ -45,11 +45,12 @@ if [[ "$image" != "$image_base"* || ! "${image#"$image_base"}" =~ ^sha256:[a-f0-
 fi
 
 helm template minoa "$repo_root" --namespace minoa-bank -f "$values" > "$scratch/rendered.yaml"
-namespace=$(python3 - "$scratch/rendered.yaml" "$image" <<'PY'
+namespace=$(python3 - "$scratch/rendered.yaml" "$image" "$schedules" <<'PY'
+import json
 import sys
 import yaml
 
-rendering, image = sys.argv[1:]
+rendering, image, schedules = sys.argv[1:]
 with open(rendering) as source:
     workers = [
         container
@@ -64,6 +65,11 @@ if len(workers) != 1 or workers[0]["image"] != image:
 environment = {entry["name"]: entry.get("value") for entry in workers[0].get("env", [])}
 if not environment.get("HEART_API_URL") or not environment.get("HEART_NAMESPACE", "default"):
     raise SystemExit("Render Accounting's Heart endpoint and namespace explicitly for preflight")
+with open(schedules) as source:
+    month_end = any(plan["enabled"] and plan["definition_name"] == "month-end-batch"
+                    for plan in json.load(source))
+if month_end and environment.get("ACCOUNTING_BANK_TIMEZONE") != "Europe/Oslo":
+    raise SystemExit("Month-end requires the Accounting deployment to render ACCOUNTING_BANK_TIMEZONE=Europe/Oslo")
 print(environment.get("HEART_NAMESPACE", "default"))
 PY
 )

@@ -74,6 +74,10 @@ image and a Heart manifest, both pinned by SHA-256. Use those two references
 from the same job. Add the worker's complete `git-…@sha256:…` suffix to a
 local candidate values file as `bjoroy-bank.accounting.accountingApi.imageTag`.
 Keep the ordinary Minoa registry and the other candidate chart overrides.
+For month-end, use the candidate umbrella chart with the Accounting chart
+that renders `accountingApi.bankTimezone`. Minoa sets this to `Europe/Oslo`
+and preflight checks the actual deployment environment. The currently checked-in
+umbrella `0.12.93` does not render this setting.
 
 Authenticate Docker and ORAS to the OCI registry. Use a Docker host that can
 run the published worker architecture (ARM64), and install Helm, ORAS, jq,

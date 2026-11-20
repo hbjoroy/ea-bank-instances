@@ -101,6 +101,7 @@ bjoroy-bank:
   accounting:
     accountingApi:
       imageTag: "0.1.7"
+      bankTimezone: "Europe/Oslo"
 
   # ── Ingress ───────────────────────────────────────────────────
   ingress:
