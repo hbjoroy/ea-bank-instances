@@ -14,8 +14,10 @@ spec:
             releaseName: bragd-rtgs
           - branch: minoa-bank
             releaseName: minoa
+            automatedSync: true
           - branch: isdalen
             releaseName: isdalen
+            automatedSync: true
           - branch: fifth-network
             releaseName: fifth-network
           - branch: docs
@@ -44,3 +46,11 @@ spec:
         syncOptions:
           - CreateNamespace=true
           - ServerSideApply=true
+  templatePatch: |
+    {{- if index . "automatedSync" }}
+    spec:
+      syncPolicy:
+        automated:
+          prune: false
+          selfHeal: false
+    {{- end }}
