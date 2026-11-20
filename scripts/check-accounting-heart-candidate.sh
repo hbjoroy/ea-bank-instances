@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Check the exact Accounting OCI release pair against a rendered Minoa candidate.
+# Check the exact Accounting OCI release pair against a rendered bank candidate.
 set -euo pipefail
 umask 077
 
-if (( $# != 6 )); then
-  echo "Usage: $0 CHECKER SCHEDULES.json ACCOUNTING_MANIFEST@sha256:DIGEST OTHER_DEFINITIONS OTHER_WORKERS.json CANDIDATE_VALUES.yaml" >&2
+if (( $# != 6 && $# != 9 )); then
+  echo "Usage: $0 CHECKER SCHEDULES.json ACCOUNTING_MANIFEST@sha256:DIGEST OTHER_DEFINITIONS OTHER_WORKERS.json CANDIDATE_VALUES.yaml [INSTANCE_CHART RELEASE_NAME KUBE_NAMESPACE]" >&2
   exit 2
 fi
 checker=$1
@@ -19,7 +19,9 @@ if [[ ! "$manifest_ref" =~ ^([^/]+)/bank-platform/accounting/manifest@sha256:[a-
   exit 1
 fi
 registry=${BASH_REMATCH[1]}
-repo_root=$(cd -- "$(dirname -- "$0")/.." && pwd)
+chart=${7:-$(cd -- "$(dirname -- "$0")/.." && pwd)}
+release_name=${8:-minoa}
+kube_namespace=${9:-minoa-bank}
 scratch=$(mktemp -d)
 trap 'rm -rf -- "$scratch"' EXIT
 oras_opts=()
@@ -44,7 +46,7 @@ if [[ "$image" != "$image_base"* || ! "${image#"$image_base"}" =~ ^sha256:[a-f0-
   exit 1
 fi
 
-helm template minoa "$repo_root" --namespace minoa-bank -f "$values" > "$scratch/rendered.yaml"
+helm template "$release_name" "$chart" --namespace "$kube_namespace" -f "$values" > "$scratch/rendered.yaml"
 namespace=$(python3 - "$scratch/rendered.yaml" "$image" "$schedules" <<'PY'
 import json
 import sys

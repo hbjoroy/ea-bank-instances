@@ -118,3 +118,45 @@ digest. Use a definitions-service build that supports digest references before
 publishing this instance manifest. The existing Accounting definitions
 promotion endpoint loads the pinned artifact into Heart. Schedule activation
 and the Helm image pin go through the normal reviewed release.
+
+## Verify Minoa and Isdalen separately
+
+Rocket's Argo CD ApplicationSet takes Minoa from the `minoa-bank` branch and
+uses release name `minoa` in namespace `minoa-bank`. It takes Isdalen from
+`isdalen` and uses `isdalen` as both release name and namespace. The instance
+IDs used for databases and OCI are `minoa` and `isdalen`. The checked-in
+ApplicationSet requires a sync operation for each bank. Check the live
+Application before changing its Git branch to confirm the effective sync policy.
+
+Capture each application's deployed Git revision, actual pod image digests
+and existing enabled schedule export. Record the existing OCI manifest digest
+for each domain. Use a separate restored database and verification output
+directory per bank. Before migration, obtain a recoverable checkpoint for the
+bank, Heart, Accounting and Treasury databases. Quiesce the writers before
+taking the checkpoint and prove the restore outside the target. The database
+names in the rendered chart are `<instance>_bank`, `<instance>_heart`,
+`<instance>_accounting` and `<instance>_treasury`.
+
+To verify Isdalen's published candidate against its own exported plans, pass
+its wrapper chart, release name and namespace to the same script:
+
+```sh
+./scripts/check-accounting-heart-candidate.sh \
+  /path/to/check-heart-release isdalen-schedules.json "$ACCOUNTING_MANIFEST" \
+  other-definitions/ isdalen-workers.json isdalen-candidate-values.yaml \
+  /path/to/isdalen-chart isdalen isdalen
+```
+
+After sync, check each application's sync revision and health, the Core and
+Accounting migration job logs, the actual running image IDs, and Heart
+readiness. Before starting a new schedule, confirm the live Heart keyed
+lookup route gives the expected explicit key-not-found response for a fresh
+key and that the exact workflow versions can be read. Use the scheduler and
+Accounting logs, admin schedule runs and open alerts to verify the first
+selected date. Preserve run IDs, terminal outcomes and posted ledger evidence.
+
+Before financial work resumes, rollback can restore the recorded Git and OCI
+manifest revisions and verify that prior pods are running. After migration or
+posting, keep dispatch paused and reconcile the run journal and ledger before
+choosing a database or definition recovery point. Reverting Git changes alone
+does not revert committed database work.
