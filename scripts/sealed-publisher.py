@@ -134,6 +134,48 @@ def manifest(row):
     return result.content
 
 
+def copy_layout(row, layout_ref):
+    # Complete a partial copy using the exact staged descriptor when the registry already
+    # has every referenced blob. No conversion or arbitrary redirect is permitted.
+    layout, digest = layout_ref.rsplit("@",1)
+    raw = (Path(layout)/"blobs"/"sha256"/digest[7:]).read_bytes()
+    doc = json.loads(raw)
+    target = f"{row['repo']}:{row['tag']}"
+    base = f"https://{REGISTRY}/v2/{row['repo']}"
+    credentials = (os.environ["OCI_USERNAME"],os.environ["OCI_PASSWORD"])
+    def blobs_present():
+        if "config" not in doc or "layers" not in doc:
+            return False
+        for item in [doc["config"],*doc["layers"]]:
+            require(SHA.fullmatch(item["digest"]), "Invalid blob digest")
+            response = requests.head(base+"/blobs/"+item["digest"],auth=credentials,timeout=30,allow_redirects=False)
+            if response.status_code!=200 or response.headers.get("Docker-Content-Digest")!=item["digest"]:
+                return False
+        return True
+    if not blobs_present():
+        proc=subprocess.run(["oras","cp","--from-oci-layout",layout_ref,f"{REGISTRY}/{target}"],stdout=subprocess.DEVNULL,stderr=subprocess.PIPE)
+        if proc.returncode==0:
+            return
+        if not blobs_present():
+            diagnostic = re.findall(r"\b(?:[45][0-9]{2}|DENIED|UNAUTHORIZED|MANIFEST_INVALID|BLOB_UNKNOWN)\b",proc.stderr.decode(errors="replace"))
+            raise RuntimeError("Blob copy failed for "+target+"; status/categories "+",".join(dict.fromkeys(diagnostic)))
+    current=manifest(row)
+    require(current is None or matches(row,current),"Target changed after blob upload")
+    if current is not None:
+        return
+    media=doc["mediaType"]
+    allowed={"application/vnd.oci.image.manifest.v1+json","application/vnd.docker.distribution.manifest.v2+json"}
+    require(media in allowed, "Unsupported staged manifest media type")
+    response=requests.put(base+"/manifests/"+row["tag"],data=raw,headers={"Content-Type":media},auth=credentials,timeout=60,allow_redirects=False)
+    if response.status_code not in (201,202):
+        try:
+            categories=[e.get("code","") for e in response.json().get("errors",[])]
+        except (ValueError,TypeError):
+            categories=[]
+        safe=[c for c in categories if isinstance(c,str) and re.fullmatch(r"[A-Z_]{1,40}",c)]
+        raise RuntimeError(f"Manifest PUT {target} ({media}) returned {response.status_code} "+",".join(safe))
+
+
 def matches(row, raw):
     if not raw:
         return False
@@ -179,7 +221,7 @@ def publish():
             if row["format"]=="chart":
                 command(["helm","push",str(payload),"oci://"+REGISTRY+"/"+row["repo"].rsplit("/",1)[0]])
             else:
-                command(["oras","cp","--from-oci-layout",payload,f"{REGISTRY}/{row['repo']}:{row['tag']}"])
+                copy_layout(row,payload)
         actual=manifest(row)
         require(matches(row,actual),"Published manifest differs from review")
         identity="sha256:"+hashlib.sha256(actual).hexdigest()
@@ -189,6 +231,8 @@ def publish():
 if __name__=="__main__":
     try:
         {"check":validate,"receive":receive,"publish":publish}[sys.argv[1]]()
+    except RuntimeError as error:
+        sys.exit(str(error))
     except ValueError as error:
         # JSON/registry parsers may include private data; disclose only our controlled messages.
         if type(error) is ValueError and len(str(error))<100:
