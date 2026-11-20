@@ -44,7 +44,7 @@ def validate():
         if row["format"] == "chart":
             require(row["asset_sha256"] == row["digest"], "Chart package digest differs")
         layout = row.get("layout", ".")
-        require(layout == "." or re.fullmatch(r"[a-z0-9][a-z0-9_-]*(/[a-z0-9][a-z0-9_-]*)*",layout), "Invalid layout path")
+        require(layout == "." or re.fullmatch(r"[a-z0-9][a-z0-9_.-]*(/[a-z0-9][a-z0-9_.-]*)*",layout), "Invalid layout path")
         key = (row["repo"],row["tag"])
         require(key not in seen, "Repeated registry target")
         seen.add(key)
