@@ -66,3 +66,55 @@ closed-day calendar leaves the new savings batch disabled while EOD requires it.
 Keep dependent jobs parked while preparing the pilot, or include the approved
 enabled savings plan in the candidate inputs. Retain the report with release
 sign-off.
+
+## Verify an Accounting release candidate
+
+Accounting's normal **CI — Build & Publish** job reports a candidate worker
+image and a Heart manifest, both pinned by SHA-256. Use those two references
+from the same job. Add the worker's complete `git-…@sha256:…` suffix to a
+local candidate values file as `bjoroy-bank.accounting.accountingApi.imageTag`.
+Keep the ordinary Minoa registry and the other candidate chart overrides.
+For month-end, use the candidate umbrella chart with the Accounting chart
+that renders `accountingApi.bankTimezone`. Minoa sets this to `Europe/Oslo`
+and preflight checks the actual deployment environment. The currently checked-in
+umbrella `0.12.93` does not render this setting.
+
+Authenticate Docker and ORAS to the OCI registry. Use a Docker host that can
+run the published worker architecture (ARM64), and install Helm, ORAS, jq,
+Python 3 and PyYAML. Prepare the schedule export as above. Supply staged Core
+and Treasury definitions and queue reports for the other worker images, omitting
+Accounting definitions and the Accounting worker report.
+
+```sh
+./scripts/check-accounting-heart-candidate.sh \
+  /path/to/check-heart-release schedules.json "$ACCOUNTING_MANIFEST" \
+  other-definitions/ other-workers.json candidate-values.yaml
+```
+
+The script pulls each Accounting artifact by digest, checks the YAML identity
+and content hash, and runs the exact rendered Accounting image to list its
+registered queues. Retain the image and manifest digests and the preflight
+report together for release review.
+
+## Stage the reviewed definition for Minoa
+
+After the coverage check, copy each selected artifact from Accounting's
+candidate repository into the corresponding Minoa instance repository, using
+the digest from the reviewed candidate manifest. For month-end close:
+
+```sh
+oras cp "$REGISTRY/bank-platform/accounting/month-end-batch@$DEFINITION_DIGEST" \
+        "$REGISTRY/minoa/accounting/month-end-batch:git-$ACCOUNTING_REVISION"
+oras manifest fetch --descriptor \
+  "$REGISTRY/minoa/accounting/month-end-batch@$DEFINITION_DIGEST"
+```
+
+Record the selection in a reviewed copy of the existing Minoa Accounting
+manifest. Preserve its existing production and replaced entries. Check that
+there is only one candidate for `month-end-batch` before promotion. The new
+entry uses name `month-end-batch`, the version from the reviewed artifact,
+state `candidate` and ref `accounting/month-end-batch@sha256:…` with the copied
+digest. Use a definitions-service build that supports digest references before
+publishing this instance manifest. The existing Accounting definitions
+promotion endpoint loads the pinned artifact into Heart. Schedule activation
+and the Helm image pin go through the normal reviewed release.
