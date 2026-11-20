@@ -163,7 +163,9 @@ def copy_layout(row, layout_ref):
     require(current is None or matches(row,current),"Target changed after blob upload")
     if current is not None:
         return
-    media=doc["mediaType"]
+    index=json.loads((Path(layout)/"index.json").read_text())
+    media=next(item["mediaType"] for item in index["manifests"] if item["digest"]==digest)
+    require(doc.get("mediaType",media)==media, "OCI manifest and descriptor media types differ")
     allowed={"application/vnd.oci.image.manifest.v1+json","application/vnd.docker.distribution.manifest.v2+json"}
     require(media in allowed, "Unsupported staged manifest media type")
     response=requests.put(base+"/manifests/"+row["tag"],data=raw,headers={"Content-Type":media},auth=credentials,timeout=60,allow_redirects=False)
