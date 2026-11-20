@@ -175,7 +175,12 @@ After the first sync, an authenticated ledger operator can read
 returned `bank_instance_id`, `bank_timezone` and `first_bank_date` to read
 `GET /accounting-api/deposit-opening/plan` with the same operator session. The
 plan contains per-currency differences and its SHA-256 digest. Review the plan
-for each bank before approval.
+for each bank before approval. Export the actual migrated plans through the
+admin API and rerun the release check while dispatch is still held:
+
+```sh
+./scripts/export-heart-schedules-http.sh "$BANK_ADMIN_URL" < session-token-file > schedules.json
+```
 
 The second revision supplies `bankInstanceId`, `firstBankDate`, `sha256` and
 `approvedBy` under `bjoroy-bank.bankCalendarCutover.openingApproval`. Record the
