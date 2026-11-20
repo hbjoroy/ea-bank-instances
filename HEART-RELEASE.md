@@ -15,15 +15,12 @@ namespace `minoa-bank`. It performs no Argo CD sync or database writes.
    chart's migration and seed. Keep the disabled rows so the report identifies
    deliberate exclusions.
 
-   ```sql
-   SELECT COALESCE(json_agg(plan ORDER BY plan.name), '[]'::json)
-   FROM (
-       SELECT name, definition_namespace, definition_name, definition_version, enabled
-       FROM admin.schedules
-   ) AS plan;
+   ```sh
+   psql -XAt -v ON_ERROR_STOP=1 -f scripts/export-heart-schedules.sql > schedules.json
    ```
 
-   Run the query with `psql -XAt -v ON_ERROR_STOP=1` to save raw JSON.
+   Connect with read-only credentials. The export includes the mandatory
+   schedule dependencies as well as enabled and disabled jobs.
 3. Stage the exact YAML artifacts selected for this release in a directory.
    Use the candidate OCI digests and the instance's enabled manifest entries.
    Keep different versions in separate files. The checker resolves each
@@ -45,7 +42,8 @@ namespace `minoa-bank`. It performs no Argo CD sync or database writes.
 
    Core, Admin and Payment images use `/usr/local/bin/core-api`,
    `/usr/local/bin/admin-api` and `/usr/local/bin/payment-engine`,
-   respectively. For an older image or another module, obtain the queue
+   respectively. The Treasury worker uses `/usr/local/bin/service` like
+   Accounting. For an older image or another module, obtain the queue
    inventory from the owner of that exact image before counting it as
    evidence. Do not substitute a different image tag or source revision.
 
@@ -62,5 +60,9 @@ worker on the same Heart endpoint and namespace. A scaled-down deployment, a
 missing definition or an inventory from another image cannot provide coverage.
 A deliberately disabled schedule is shown as `SKIP`. An enabled schedule with
 missing coverage prints its exact process, node, queue and candidate images and
-returns nonzero. The report covers the provided candidate evidence and can be
-retained with release sign-off.
+returns nonzero. The gate also rejects an enabled recurring plan whose mandatory
+recurring prerequisite is disabled or missing from the export. The stock
+closed-day calendar leaves the new savings batch disabled while EOD requires it.
+Keep dependent jobs parked while preparing the pilot, or include the approved
+enabled savings plan in the candidate inputs. Retain the report with release
+sign-off.
