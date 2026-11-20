@@ -62,11 +62,11 @@ bjoroy-bank:
 
   # ── Core API ──────────────────────────────────────────────────
   coreApi:
-    imageTag: "recovered-e73e9ebfc5f7@sha256:e73e9ebfc5f7372fb7c5584142b56f52e59ce0fb8045567d1532e2fcd9b57e2a"
+    imageTag: "1.4.46@sha256:ee3d7f7147cfeb298477d62e7c04b9b09f2cbbb3243cc0d39ea9a758f4cad55a"
 
   # ── Admin API ────────────────────────────────────────────────
   adminApi:
-    imageTag: "recovered-9ffa5836b633@sha256:9ffa5836b6337d7d1d1e26b0c7b6d4adccdcc54268065d95fd271f5e6c328d2c"
+    imageTag: "1.4.46@sha256:1ab3d8800c97a8cce82ae7883f88424365d17cab83b13f42be9dda7fccdabe92"
 
   # ── Channel Gateway ───────────────────────────────────────────
   channelGateway:
@@ -79,7 +79,7 @@ bjoroy-bank:
     bankId: "MINO"
     bankSortCodes: "3188,3606,3607,3608,3609,3610"
     nostroScheme: "bragd"
-    imageTag: "recovered-ae60c1d76676@sha256:ae60c1d76676183ca56c7752342576c178d6f38f87e03cc490dc173d1a8e3f20"
+    imageTag: "1.4.46@sha256:7f16d0eb26c9e3bceba2643f9fe6ad05289171067e34bab9bb87aadf1a3bf40e"
 
   # ── RTP Service Provider ────────────────────────────────────
   rtpSpApi:
@@ -89,18 +89,36 @@ bjoroy-bank:
     bankBic: "MINOBRXX"
     ibanPrefixes: "NO3188,NO3606,NO3607,NO3608,NO3609,NO3610"
 
+  bankCalendarCutover:
+    version: "deposit-interest-v1"
+
   # ── Definitions Service ──────────────────────────────────────
   definitionsService:
-    imageTag: "recovered-8287004fa630@sha256:8287004fa630061b9aeb9a104a56f40a5e71418524d155f04e86f07683398177"
+    imageTag: "1.4.46@sha256:a864d4e62b3dbacb132bcd53781e4697a47335c54d2fa93ec99d4929573ebf8e"
 
   # ── Scheduler ────────────────────────────────────────────────
   scheduler:
-    imageTag: "recovered-d2e9aee696a3@sha256:d2e9aee696a3effe99c95e951400ac6c3f364eca0264949f239f189043e4a0af"
+    imageTag: "1.4.46@sha256:e6014d447c828dc03144d3e959c50bc8e03c47052cc13faae20b1cda24046469"
 
   # ── Accounting (subchart) ─────────────────────────────────────
   accounting:
     accountingApi:
-      imageTag: "0.1.7"
+      imageTag: "git-71ce9174129483f9912746a0f034f563e52ad1ae@sha256:ded1b0104ddff3bc0aba890f406f202c3c6e2e32ee9e6cd85b711dc0c0c04688"
+      bankTimezone: "Europe/Oslo"
+      requireDepositOpening: true
+
+  heart:
+    image:
+      repository: "oci.bjoroy.me/heart/api"
+      tag: "0.1.1@sha256:038fedad485d30af5fb6e1ff3c71aae1cfe6d70a8985f6b986a8bf688cc5997b"
+
+  treasury:
+    treasuryApi:
+      imageTag: "0.1.6@sha256:7de5eeb9853ed00420e78edc26e69fd476bc3bde8d5ee8ce82cbcce29ade8682"
+
+  adminUi:
+    adminUi:
+      imageTag: "0.2.23@sha256:952d5660e228d2edf2888932c200810df2f8410779be7dfb82cace8a2c3602cd"
 
   # ── Ingress ───────────────────────────────────────────────────
   ingress:
