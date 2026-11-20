@@ -1,0 +1,31 @@
+name: Verify bank release publisher
+on:
+  workflow_dispatch:
+    inputs:
+      asset_node:
+        description: Opaque GitHub node ID of a small candidate checksum asset
+        type: string
+        required: true
+permissions:
+  contents: read
+jobs:
+  verify:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify canonical registry authorization
+        env:
+          OCI_USERNAME: ${{ secrets.OCI_USERNAME }}
+          OCI_PASSWORD: ${{ secrets.OCI_PASSWORD }}
+        run: |
+          set -euo pipefail
+          test -n "$OCI_USERNAME" && test -n "$OCI_PASSWORD" || { echo "::error::Missing registry identity"; exit 1; }
+          echo "$OCI_PASSWORD" | docker login oci.bjoroy.me -u "$OCI_USERNAME" --password-stdin
+      - name: Verify private archive download
+        env:
+          ASSET_NODE: ${{ inputs.asset_node }}
+          BANK_RELEASE_READ_TOKEN: ${{ secrets.BANK_RELEASE_READ_TOKEN }}
+          GH_PAT: ${{ secrets.GH_PAT }}
+          WORKFLOW_TOKEN: ${{ github.token }}
+        run: python3 scripts/check-release-access.py
