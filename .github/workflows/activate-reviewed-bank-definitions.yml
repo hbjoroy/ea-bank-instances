@@ -1,0 +1,34 @@
+name: Activate reviewed bank definitions
+on:
+  workflow_dispatch:
+    inputs:
+      bank: {description: Bank receiving the six approved definitions, required: true, type: choice, options: [minoa, isdalen]}
+      selection: {description: Reviewed definition digests and previous bank domain manifest heads, required: true}
+      apply: {description: Activate the verified selection in this bank, type: boolean, default: false}
+permissions:
+  contents: read
+concurrency:
+  group: bank-domain-manifests-${{ inputs.bank }}
+  cancel-in-progress: false
+jobs:
+  update:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oras-project/setup-oras@v1
+        with: {version: 1.2.3}
+      - name: Exercise domain selection and replay
+        run: python3 -m unittest discover -s tests -p test_bank_domains.py
+      - name: Authenticate to bank registry
+        if: inputs.apply
+        env:
+          USERNAME: ${{ secrets.OCI_USERNAME }}
+          PASSWORD: ${{ secrets.OCI_PASSWORD }}
+        run: printf '%s' "$PASSWORD" | oras login oci.bjoroy.me -u "$USERNAME" --password-stdin >/dev/null
+      - name: Verify selected artifacts and bank heads
+        env:
+          BANK: ${{ inputs.bank }}
+          SELECTION: ${{ inputs.selection }}
+          APPLY: ${{ inputs.apply }}
+        run: python3 scripts/bank_domains.py
