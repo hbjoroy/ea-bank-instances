@@ -91,6 +91,11 @@ bjoroy-bank:
 
   bankCalendarCutover:
     version: "deposit-interest-v1"
+    openingApproval:
+      bankInstanceId: "92bd614e-c1f9-4f2f-993b-4c0e833cb61b"
+      firstBankDate: "2026-11-21"
+      sha256: "449024e2af9d75dfa2078f6a01635ab708052a575b2779e4da1b3bcfc50413a7"
+      approvedBy: "Harald Bjorøy / ISDALEN-MINOA-20261121 / 2026-11-20"
 
   # ── Definitions Service ──────────────────────────────────────
   definitionsService:
