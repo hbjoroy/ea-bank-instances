@@ -15,6 +15,7 @@ import yaml
 HOST = "oci.bjoroy.me"
 MANIFEST_TYPE = "application/vnd.bank.definition-manifest.v1+yaml"
 DEFINITION_TYPE = "application/vnd.heart.definition.v1+yaml"
+PRODUCT_PROCESS_TYPE = "application/vnd.bank.process-definition.v1+yaml"
 MEDIA = "application/vnd.oci.image.manifest.v1+json"
 DIGEST = re.compile("sha256:[0-9a-f]{64}")
 VERSIONS = {
@@ -53,7 +54,10 @@ def head(repo, tag):
 def artifact(repo, reference, expected_type):
     manifest=json.loads(fetch(repo,"manifests",reference))
     layers=manifest.get("layers",[])
-    check(manifest.get("artifactType")==expected_type and len(layers)==1, "Wrong OCI artifact type or layer count")
+    allowed = {expected_type}
+    if expected_type==DEFINITION_TYPE and repo.split("/")[1]=="products":
+        allowed.add(PRODUCT_PROCESS_TYPE)
+    check(manifest.get("artifactType") in allowed and len(layers)==1, "Wrong OCI artifact type or layer count")
     layer=layers[0]
     check(layer.get("mediaType")=="application/x-yaml" and DIGEST.fullmatch(layer.get("digest","")), "Invalid YAML layer")
     data=fetch(repo,"blobs",layer["digest"])
