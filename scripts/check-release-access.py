@@ -2,7 +2,7 @@
 import os
 import re
 import sys
-from urllib.parse import urlsplit
+from urllib.parse import quote, urlsplit
 
 import requests
 
@@ -11,7 +11,7 @@ if not re.fullmatch(r"RA_[A-Za-z0-9_-]{8,100}", node):
     sys.exit("Expected an opaque release asset node")
 query = """query($id:ID!) {
   node(id:$id) { ... on ReleaseAsset {
-    databaseId size release {repository {nameWithOwner isPrivate}} } }
+    size release {tagName repository {nameWithOwner isPrivate}} } }
 }"""
 for name in ("BANK_RELEASE_READ_TOKEN", "GH_PAT", "WORKFLOW_TOKEN"):
     token = os.environ.get(name)
@@ -31,7 +31,13 @@ for name in ("BANK_RELEASE_READ_TOKEN", "GH_PAT", "WORKFLOW_TOKEN"):
     slug = repo["nameWithOwner"]
     if not slug.startswith(owner + "/"):
         sys.exit("Unexpected release owner")
-    url = f"https://api.github.com/repos/{slug}/releases/assets/{asset['databaseId']}"
+    tag = quote(asset["release"]["tagName"], safe="")
+    release = requests.get(f"https://api.github.com/repos/{slug}/releases/tags/{tag}", headers=headers, timeout=30)
+    matching = [entry for entry in release.json().get("assets", []) if entry.get("node_id") == node] if release.ok else []
+    if len(matching) != 1:
+        print(f"{name} cannot retrieve the candidate metadata")
+        continue
+    url = f"https://api.github.com/repos/{slug}/releases/assets/{matching[0]['id']}"
     response = requests.get(url, headers={**headers, "Accept":"application/octet-stream"}, allow_redirects=False, timeout=30)
     if response.is_redirect:
         target = response.headers["Location"]
