@@ -160,3 +160,29 @@ manifest revisions and verify that prior pods are running. After migration or
 posting, keep dispatch paused and reconcile the run journal and ledger before
 choosing a database or definition recovery point. Reverting Git changes alone
 does not revert committed database work.
+
+## Approve and apply the deposit opening
+
+Use two reviewed instance revisions. The first sets
+`bjoroy-bank.bankCalendarCutover.version` to `deposit-interest-v1` and enables
+`bjoroy-bank.accounting.accountingApi.requireDepositOpening`. Keep
+`openingApproval` empty. This revision prepares the Core opening while the
+scheduler and Accounting imports wait. Sync the reviewed definitions to
+Heart before the preparation job runs.
+
+After the first sync, an authenticated ledger operator can read
+`GET /api/schedules/calendar-activation` through the normal admin host. Use the
+returned `bank_instance_id`, `bank_timezone` and `first_bank_date` to read
+`GET /accounting-api/deposit-opening/plan` with the same operator session. The
+plan contains per-currency differences and its SHA-256 digest. Review the plan
+for each bank before approval.
+
+The second revision supplies `bankInstanceId`, `firstBankDate`, `sha256` and
+`approvedBy` under `bjoroy-bank.bankCalendarCutover.openingApproval`. Record the
+approval or change reference in `approvedBy`. The Accounting apply job checks
+the digest before any new posting. The following verification job matches the
+committed Accounting receipt to the Core opening, bank and approved date.
+Only that final receipt releases dispatch. Recheck
+`/api/schedules/calendar-activation` for `opening_applied: true` and the reviewed
+`opening_sha256` after the second sync. Keep the reviewed revisions and opening
+receipts with the release evidence.
