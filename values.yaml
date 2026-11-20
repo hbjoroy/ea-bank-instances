@@ -105,6 +105,7 @@ bjoroy-bank:
     accountingApi:
       imageTag: "0.1.7"
       bankTimezone: "Europe/Oslo"
+      requireDepositOpening: true
 
   # ── Database setup (pre-install) ─────────────────────────────
   setup:
