@@ -28,6 +28,9 @@ namespace `minoa-bank`. It performs no Argo CD sync or database writes.
    Use the candidate OCI digests and the instance's enabled manifest entries.
    Keep different versions in separate files. The checker resolves each
    schedule against the YAML's actual namespace, name and version.
+   The savings fan-out schedule also requires `default/daily-savings-interest:1.0.0`,
+   which the Core worker starts for each agreement. Include that child artifact
+   and the images that handle its calculation and settlement queues.
 4. Obtain a queue report from each worker image that should cover the plans.
    Use the exact image reference and the Heart namespace rendered by Helm.
    Workers without an explicit namespace use `default`. Collect the reports
