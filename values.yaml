@@ -62,11 +62,11 @@ bjoroy-bank:
 
   # ── Core API ──────────────────────────────────────────────────
   coreApi:
-    imageTag: "1.4.46@sha256:ee3d7f7147cfeb298477d62e7c04b9b09f2cbbb3243cc0d39ea9a758f4cad55a"
+    imageTag: "git-fa147297d0f5b52d6e1023c2c0d8923ee4d3b73a@sha256:5ccf7a01e8cb04d6d4c0a42514a6c028bd13d1b5d5459c7e9055770e9b85c03d"
 
   # ── Admin API ────────────────────────────────────────────────
   adminApi:
-    imageTag: "1.4.46@sha256:1ab3d8800c97a8cce82ae7883f88424365d17cab83b13f42be9dda7fccdabe92"
+    imageTag: "git-d2f92d17e50ef41625d87f1ef80293c1df1eaa30@sha256:6a782169bcc159ca5081b314914a1f5436a5c77dcf48b7a400fc0731f2f4abb0"
 
   # ── Channel Gateway ───────────────────────────────────────────
   channelGateway:
@@ -108,7 +108,7 @@ bjoroy-bank:
   # ── Accounting (subchart) ─────────────────────────────────────
   accounting:
     accountingApi:
-      imageTag: "git-842c8197d3fba047f6fb096576f135e867da7228@sha256:5ed2db870e1e84d69659a4c4e19c9b1f322b5679eced43c9763fb47961f3132b"
+      imageTag: "git-04e9bfbfc75bdba2908c62cb598a1bcf2cc3a8d8@sha256:2f7c38cfc33b431d3720b21fdf27d2d312082688c859b38d603baf1b43e15d99"
       bankTimezone: "Europe/Oslo"
       requireDepositOpening: true
 
@@ -119,7 +119,7 @@ bjoroy-bank:
 
   treasury:
     treasuryApi:
-      imageTag: "0.1.6@sha256:7de5eeb9853ed00420e78edc26e69fd476bc3bde8d5ee8ce82cbcce29ade8682"
+      imageTag: "git-b797f3b60821714eaa024b7260d5803fc12df3d8@sha256:16fea17ba99a71ea701cd85b43da1f3cf859e59356eee59294e3418e4e13c328"
 
   adminUi:
     adminUi:

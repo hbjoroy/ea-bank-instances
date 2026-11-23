@@ -1,0 +1,54 @@
+{{- $bank := index .Values "bjoroy-bank" }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-capital-migrations
+  annotations:
+    helm.sh/hook: pre-install,pre-upgrade
+    helm.sh/hook-weight: "-4"
+    helm.sh/hook-delete-policy: before-hook-creation
+data:
+{{ (.Files.Glob "migrations/capital/*.sql").AsConfig | indent 2 }}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Release.Name }}-capital-migrate
+  annotations:
+    helm.sh/hook: pre-install,pre-upgrade
+    helm.sh/hook-weight: "-3"
+    helm.sh/hook-delete-policy: before-hook-creation
+spec:
+  activeDeadlineSeconds: 180
+  backoffLimit: 1
+  template:
+    spec:
+      restartPolicy: Never
+      automountServiceAccountToken: false
+      containers:
+        - name: migrate
+          image: docker.io/library/postgres:17
+          env:
+            - name: PGHOST
+              value: {{ $bank.global.dbHost | quote }}
+            - name: PGUSER
+              value: minoa_bank
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name }}-db-credentials
+                  key: password
+          command: ["/bin/sh", "-ec"]
+          args:
+            - |
+              for db in minoa_bank minoa_accounting minoa_treasury; do
+                psql -X -v ON_ERROR_STOP=1 --single-transaction -d "$db" -f "/migrations/$db.sql"
+              done
+          volumeMounts:
+            - name: migrations
+              mountPath: /migrations
+              readOnly: true
+      volumes:
+        - name: migrations
+          configMap:
+            name: {{ .Release.Name }}-capital-migrations
