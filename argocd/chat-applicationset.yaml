@@ -21,7 +21,7 @@ spec:
             multiAgentMode: "true"
           - instance: isdalen
             releaseName: isdalen
-            chatChartVersion: "0.1.95"
+            chatChartVersion: "0.1.96"
             useVllm: "true"
             instanceId: "isdalen"
             instanceName: "Isdalen Bank"
