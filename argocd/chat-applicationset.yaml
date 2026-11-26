@@ -11,7 +11,7 @@ spec:
         elements:
           - instance: minoa-bank
             releaseName: minoa
-            chatChartVersion: "0.1.95"
+            chatChartVersion: "0.1.96"
             useVllm: "true"
             instanceId: "minoa"
             instanceName: "Minoa Bank"
