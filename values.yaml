@@ -115,7 +115,7 @@ bjoroy-bank:
   heart:
     image:
       repository: "oci.bjoroy.me/heart/api"
-      tag: "0.1.1@sha256:038fedad485d30af5fb6e1ff3c71aae1cfe6d70a8985f6b986a8bf688cc5997b"
+      tag: "0.2.0@sha256:b0b93c54645a05fc568d61c29979a73e3fdbe13d5dbaf08764e03fc5ab25b711"
 
   treasury:
     treasuryApi:
