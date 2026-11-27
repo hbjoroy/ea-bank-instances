@@ -79,7 +79,7 @@ bjoroy-bank:
     bankId: "ISDA"
     bankSortCodes: "3288"
     nostroScheme: "bragd"
-    imageTag: "1.4.46@sha256:7f16d0eb26c9e3bceba2643f9fe6ad05289171067e34bab9bb87aadf1a3bf40e"
+    imageTag: "1.4.47@sha256:22d82a927c730a33b2251a60ceaca5ca7b1375da777370047723732c51815d80"
 
   # ── RTP Service Provider ────────────────────────────────────
   rtpSpApi:
@@ -115,7 +115,7 @@ bjoroy-bank:
   heart:
     image:
       repository: "oci.bjoroy.me/heart/api"
-      tag: "0.3.0@sha256:18d6ac27ce0c5462c0ae90a37d9c492c848cd8c40915937e9d7565b16a3402c4"
+      tag: "0.4.1@sha256:56a1101ded1c5c17e08fdb343cb1a9e6ad784b079d6e389a822fd36b1f9ba9e4"
 
   treasury:
     treasuryApi:
